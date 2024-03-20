@@ -6,21 +6,21 @@ from psycopg2 import IntegrityError
 # Database connection parameters
 conn_params = {
     'dbname': 'school',
-    'user': 'postgres', # Replace 'dummy_user' with your actual database username
-    'password': 'sy199912', # Replace 'dummy_password' with your actual database password
+    'user': 'dummy_user', # Replace 'dummy_user' with your actual database username
+    'password': 'dummy_password', # Replace 'dummy_password' with your actual database password
     'host': 'localhost'
 }
 
 # cursor = connection.cursor()
 
-# Function to connect to the database
+#Function to connect to the database
 def connect_db():
     conn = psycopg2.connect(**conn_params)
     return conn
 
 # CRUD operations
 def getAllStudents():
-    conn = connect_db()
+    conn = connect_db() #connect to database
     cur = conn.cursor()
     cur.execute("SELECT * FROM students")
     records = cur.fetchall()
@@ -30,9 +30,9 @@ def getAllStudents():
     cur.close()
     conn.close()
 
-
+#add student function
 def addStudent(first_name, last_name, email, enrollment_date):
-    """Insert a new student record into the database."""
+    # insert a new student record into the database.
     try:
         conn = connect_db()
         cur = conn.cursor()
@@ -53,7 +53,7 @@ def updateStudentEmail(student_id, new_email):
     cur = conn.cursor()
     cur.execute("UPDATE students SET email = %s WHERE student_id = %s",
                 (new_email, student_id))
-    if cur.rowcount == 0:
+    if cur.rowcount == 0: #checker
         print("No student found with the specified ID.")
     else:
         conn.commit()
@@ -69,7 +69,7 @@ def deleteStudent(student_id):
     conn = connect_db()
     cur = conn.cursor()
     cur.execute("DELETE FROM students WHERE student_id = %s", (student_id,))
-    if cur.rowcount == 0:
+    if cur.rowcount == 0: # checker
         print("No student found with the specified ID.")
     else:
         conn.commit()
@@ -78,9 +78,9 @@ def deleteStudent(student_id):
     conn.close()
 
 
-# Example Usage
+# main function for testing
 def main():
-    while True:
+    while True: #loop until user chooses 5
         print("\nAvailable actions: \n1. Show all students \n2. Add a student \n3. Update a student's email \n4. Delete a student \n5. Exit")
         choice = input("Enter your choice (1-5): ")
 
