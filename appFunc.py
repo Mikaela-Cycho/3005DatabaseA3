@@ -22,7 +22,7 @@ def connect_db():
 def getAllStudents():
     conn = connect_db() #connect to database
     cur = conn.cursor()
-    cur.execute("SELECT * FROM students")
+    cur.execute("SELECT * FROM students") 
     records = cur.fetchall()
     print("Student Records:")
     for rec in records:
@@ -32,8 +32,8 @@ def getAllStudents():
 
 #add student function
 def addStudent(first_name, last_name, email, enrollment_date):
-    # insert a new student record into the database.
-    try:
+    # insert a new student record into the database. use try and except to avoid app crushing 
+    try: 
         conn = connect_db()
         cur = conn.cursor()
         cur.execute("INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES (%s, %s, %s, %s)",
@@ -64,7 +64,7 @@ def updateStudentEmail(student_id, new_email):
 
 
 
-
+# to delete student from the database
 def deleteStudent(student_id):
     conn = connect_db()
     cur = conn.cursor()
@@ -78,7 +78,7 @@ def deleteStudent(student_id):
     conn.close()
 
 
-# main function for testing
+# main function for testing, give the user 5 choices
 def main():
     while True: #loop until user chooses 5
         print("\nAvailable actions: \n1. Show all students \n2. Add a student \n3. Update a student's email \n4. Delete a student \n5. Exit")
